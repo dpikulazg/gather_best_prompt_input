@@ -397,7 +397,14 @@ export default function App() {
             </div>
             <div className="flex space-x-6 opacity-80 font-mono">
               <span>Security: AES-256</span>
-              <span>Google Cloud Platform</span>
+              <a 
+                href="https://dario-pikula-full-stack-c-developer-298174203007.us-west1.run.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                Dario Pikula B2B Solutions
+              </a>
             </div>
           </footer>
         </div>
