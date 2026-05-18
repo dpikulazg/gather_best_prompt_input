@@ -16,6 +16,7 @@ export interface Message {
   role: Role;
   parts: MessagePart[];
   timestamp: number;
+  isError?: boolean;
 }
 
 export enum ModelId {

@@ -8,7 +8,8 @@ import {
   Sparkles, 
   Cpu, 
   Terminal,
-  X
+  X,
+  AlertTriangle
 } from 'lucide-react';
 import { Message, Role, ModelId, MessagePart } from './types';
 import { sendMessageStream } from './services/geminiService';
@@ -100,13 +101,26 @@ export default function App() {
           m.id === botMsgId ? { ...m, parts: [{ text: botText }] } : m
         ));
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Streaming error:', error);
+      let errorMessage = 'An unexpected error occurred while communicating with Gemini.';
+      
+      if (error?.status === 401 || error?.message?.includes('API key not valid')) {
+        errorMessage = 'Authentication failed: Invalid Gemini API Key.';
+      } else if (error?.status === 429 || error?.message?.includes('quota')) {
+        errorMessage = 'Quota exceeded: You have reached the rate limit for this model.';
+      } else if (error?.status === 403 || error?.message?.includes('permission')) {
+        errorMessage = 'Permission denied: Please check your configuration and geographic region availability.';
+      } else if (error?.message) {
+        errorMessage = `Error: ${error.message}`;
+      }
+
       setMessages(prev => [...prev, {
         id: Date.now().toString(),
         role: Role.BOT,
-        parts: [{ text: 'Error: Failed to get response.' }],
-        timestamp: Date.now()
+        parts: [{ text: errorMessage }],
+        timestamp: Date.now(),
+        isError: true
       }]);
     } finally {
       setIsStreaming(false);
@@ -280,8 +294,16 @@ export default function App() {
                     <div className={`p-5 rounded-2xl backdrop-blur-xl border ${
                       msg.role === Role.USER 
                         ? 'bg-blue-600/90 border-blue-400/30 text-white shadow-xl shadow-blue-900/20' 
-                        : 'bg-white/5 border-white/10 text-slate-200 shadow-xl'
+                        : msg.isError 
+                          ? 'bg-red-500/10 border-red-500/30 text-red-200 shadow-xl'
+                          : 'bg-white/5 border-white/10 text-slate-200 shadow-xl'
                     }`}>
+                      {msg.isError && (
+                        <div className="flex items-center gap-2 mb-3 text-red-400">
+                          <AlertTriangle size={16} />
+                          <span className="text-[11px] font-bold uppercase tracking-widest text-red-400">System Error</span>
+                        </div>
+                      )}
                       {msg.parts.map((part, i) => (
                         <div key={i} className="space-y-4">
                           {part.text && (
