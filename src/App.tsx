@@ -147,7 +147,7 @@ export default function App() {
               <div className="w-8 h-8 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
                 <Cpu size={16} className="text-white" />
               </div>
-              <h1 className="text-sm font-bold tracking-wider uppercase text-slate-200">Gemini Protocol</h1>
+              <h1 className="text-sm font-bold tracking-wider uppercase text-slate-200">Multi Prompt AI</h1>
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 space-y-6">
@@ -228,7 +228,7 @@ export default function App() {
               <span className="text-slate-700">/</span>
               <span className="text-slate-500 uppercase">Agent Multimodal</span>
               <span className="text-slate-700">/</span>
-              <span className="text-white">PLAYGROUND</span>
+              <span className="text-white">PROMPTS</span>
             </nav>
           </div>
           <div className="flex items-center gap-3">
@@ -260,10 +260,10 @@ export default function App() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full px-4">
                 {[
-                  "Explain neural networks",
-                  "Draft technical spec",
-                  "Analyze system diagram",
-                  "Microservices strategy"
+                  "Explain DNS consolidation project",
+                  "Draft technical spec API .Net core",
+                  "Analyze system diagram from azure",
+                  "Microservices strategy for high availability"
                 ].map((hint, i) => (
                   <button 
                     key={i}
@@ -287,7 +287,7 @@ export default function App() {
                   <div className={`max-w-[85%] space-y-2 ${msg.role === Role.USER ? 'items-end' : 'items-start'}`}>
                     <div className="flex items-center gap-2 mb-1 px-1">
                       <span className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] font-bold">
-                        {msg.role === Role.USER ? 'Operator' : 'Gemini_Core'}
+                        {msg.role === Role.USER ? 'Operator' : 'UserAI_Core'}
                       </span>
                     </div>
                     
@@ -420,7 +420,7 @@ export default function App() {
             <div className="flex space-x-6 opacity-80 font-mono">
               <span>Security: AES-256</span>
               <a 
-                href="https://dario-pikula-full-stack-c-developer-298174203007.us-west1.run.app/"
+                href="https://dario-pikula-full-stack-c-developer-v2-0-568481132957.europe-west1.run.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
